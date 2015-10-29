@@ -19,13 +19,15 @@ class Vertex{
 
     //possibilities for colors are R G B W
     String color;
+    ArrayList<Edge> edges = new ArrayList<>();
 
     public Vertex(){
 	color = null;
     }
     
-    public void setColor(String newColor){
+    public void setColor(String newColor, ArrayList<Edge> _edges){
 	this.color = newColor;
+	edges = _edges;
     }
 
 }
