@@ -18,14 +18,15 @@ import java.util.ArrayList;
 class Vertex{
 
     //possibilities for colors are R G B W
-    String color;
+    int color;
     ArrayList<Edge> edges = new ArrayList<>();
 
-    public Vertex(){
-	color = null;
+    public Vertex(ArrayList<Edge> _edges){
+	color = -1;
+	edges = _edges;
     }
     
-    public void setColor(String newColor, ArrayList<Edge> _edges){
+    public void setColor(int newColor, ArrayList<Edge> _edges){
 	this.color = newColor;
 	edges = _edges;
     }
@@ -44,23 +45,58 @@ class Edge{
 }
 
 
-public Graph{
+class Graph{
 
     ArrayList<Vertex> vertices = new ArrayList<>();
-    ArrayList<Edge> edges = new ArrayList<>();
 
-    public Graph( ArrayList<Vertex> _vertices, ArrayList<Edge> _edges){
+    public Graph( ArrayList<Vertex> _vertices){
 	vertices = _vertices;
-	edges = _edges;
     }
 }
 
 
 public class FourColors{
 	
+    int[] colors = new int[4];
 
+    public Graph colorGraph(Graph g){
+
+	g.vertices.get(0).color = 0;
+	int availableColors = 4;
+	int c = -1;
+
+	for(Vertex v : g.vertices){
+	    if(v.color == -1){
+		for(Edge e : v.edges){
+		    for(int i=0; i < colors.length; i++){
+			if(e.end.color == colors[i]){
+			    availableColors--;
+			}else{
+			    c = colors[i];
+			}
+		    }
+		    if(availableColors >= 1){
+			v.color = c;
+		    }
+		}
+	    }
+	}
+
+	for(Vertex v : g.vertices){
+	    if(v.color == -1){
+		//KEMP CHAINS OR BACKTRACK
+	    }
+	}
+	return g;
+    }
+
+    /*    public Graph kemp(Vertex v){
+	for(Edge e : v.edges
+	}*/
 
     public static void main(String[] args){
+
+	
 	
     }
 }
