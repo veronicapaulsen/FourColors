@@ -17,13 +17,13 @@ import java.util.ArrayList;
 
 class Vertex{
 
-    //possibilities for colors are R G B W
     int color;
     ArrayList<Edge> edges = new ArrayList<>();
+    String name;
 
-    public Vertex(ArrayList<Edge> _edges){
+    public Vertex(String _name){
 	color = -1;
-	edges = _edges;
+	name = _name;
     }
     
     public void setColor(int newColor, ArrayList<Edge> _edges){
@@ -47,48 +47,51 @@ class Edge{
 
 class Graph{
 
+    int[] colors = {0, 1, 2, 3};
     ArrayList<Vertex> vertices = new ArrayList<>();
 
     public Graph( ArrayList<Vertex> _vertices){
 	vertices = _vertices;
     }
-}
 
+    public void colorGraph(){
 
-public class FourColors{
-	
-    int[] colors = new int[4];
-
-    public Graph colorGraph(Graph g){
-
-	g.vertices.get(0).color = 0;
-	int availableColors = 4;
+	this.vertices.get(0).color = 0;
+	int availableColors = 3;
 	int c = -1;
 
-	for(Vertex v : g.vertices){
+	for(Vertex v : this.vertices){
 	    if(v.color == -1){
 		for(Edge e : v.edges){
+		    System.out.println(v.name + " is attached to " + e.end.color);
 		    for(int i=0; i < colors.length; i++){
 			if(e.end.color == colors[i]){
+			    System.out.println("im here");
 			    availableColors--;
 			}else{
 			    c = colors[i];
 			}
 		    }
-		    if(availableColors >= 1){
-			v.color = c;
-		    }
+		}		
+		if(availableColors > -1){
+		    v.color = c;
+		    c = -1;
+		    availableColors = 3;
 		}
 	    }
 	}
 
-	for(Vertex v : g.vertices){
+	for(Vertex v : this.vertices){
 	    if(v.color == -1){
 		//KEMP CHAINS OR BACKTRACK
 	    }
 	}
-	return g;
     }
+
+}
+
+
+public class FourColors{
 
     /*    public Graph kemp(Vertex v){
 	for(Edge e : v.edges
@@ -96,7 +99,54 @@ public class FourColors{
 
     public static void main(String[] args){
 
-	
-	
+	Vertex A = new Vertex("A");
+	Vertex B = new Vertex("B");
+	Vertex C = new Vertex("C");
+	Vertex D = new Vertex("D");
+
+	Edge ab = new Edge(A, B);
+	Edge ad = new Edge(A, D);
+
+	Edge ba = new Edge(B, A);
+	Edge bc = new Edge(B, C);
+
+	Edge cb = new Edge(C, B);
+	Edge cd = new Edge(C, D);
+
+	Edge dc = new Edge(D, C);
+	Edge da = new Edge(D, A);
+
+
+	A.edges.add(ab);
+	A.edges.add(ad);
+	B.edges.add(ba);
+	B.edges.add(bc);
+	C.edges.add(cb);
+	C.edges.add(cd);
+	D.edges.add(dc);
+	D.edges.add(da);
+
+	ArrayList<Vertex> vertices = new ArrayList<>();
+	vertices.add(A);
+	vertices.add(B);
+	vertices.add(C);
+	vertices.add(D);
+
+	Graph g = new Graph(vertices);
+
+	//to make sure the graph is connected correctly
+	for(Vertex v : g.vertices){
+	    System.out.print(v.name + " is attached to: ");
+	    for(Edge e : v.edges){
+		System.out.print(e.end.name + " and ");
+	    }
+	    System.out.println();
+	}
+
+	g.colorGraph();
+
+	for(Vertex v : g.vertices){
+	    System.out.println(v.name + " " + v.color);
+	}
     }
 }
