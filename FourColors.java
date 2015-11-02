@@ -57,26 +57,31 @@ class Graph{
     public void colorGraph(){
 
 	this.vertices.get(0).color = 0;
-	int availableColors = 3;
+	ArrayList<Integer> unAvailableColors = new ArrayList<>();
 	int c = -1;
 
 	for(Vertex v : this.vertices){
 	    if(v.color == -1){
 		for(Edge e : v.edges){
-		    System.out.println(v.name + " is attached to " + e.end.color);
+		    //System.out.println(v.name + " is attached to " + e.end.color);
 		    for(int i=0; i < colors.length; i++){
 			if(e.end.color == colors[i]){
-			    System.out.println("im here");
-			    availableColors--;
-			}else{
-			    c = colors[i];
+			    unAvailableColors.add(colors[i]);
 			}
 		    }
 		}		
-		if(availableColors > -1){
+		if(unAvailableColors.size() < 4){
+		    for(int i=0; i < colors.length; i++){
+			if(!unAvailableColors.contains(colors[i])){
+			    c = colors[i];
+			}
+		    }		    
 		    v.color = c;
-		    c = -1;
-		    availableColors = 3;
+		}	
+		//reset for next vertex
+		c = -1;
+		for(int i = 0; i < unAvailableColors.size(); i++){
+		    unAvailableColors.remove(i);
 		}
 	    }
 	}
