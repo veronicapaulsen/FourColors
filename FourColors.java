@@ -129,7 +129,8 @@ public class FourColors{
 
     public static void main(String[] args){
 
-	Vertex A = new Vertex("A");
+	/*	BACKTRACKING EXAMPLE
+		Vertex A = new Vertex("A");
 	Vertex B = new Vertex("B");
 	Vertex C = new Vertex("C");
 	Vertex D = new Vertex("D");
@@ -186,23 +187,80 @@ public class FourColors{
 	vertices.add(B);
 	vertices.add(C);
 	vertices.add(D);
-	vertices.add(E);	
+	vertices.add(E);	*/
+
+
+	Vertex Ven = new Vertex("Venezuela");
+	Vertex Col = new Vertex("Colombia");
+	Vertex Ec = new Vertex("Ecuador");
+	Vertex Sur = new Vertex("Suriname");
+	Vertex Guy = new Vertex("Guyana");
+	Vertex Bra = new Vertex("Brazil");
+
+	Edge vc = new Edge(Ven, Col);
+	Edge cv = new Edge(Col, Ven);
+	Edge ce = new Edge(Col, Ec);
+	Edge ec = new Edge(Ec, Col);
+	Edge vg = new Edge(Ven, Guy);
+	Edge gv = new Edge(Guy, Ven);
+	Edge vb = new Edge(Ven, Bra);
+	Edge bv = new Edge(Bra, Ven);
+	Edge sg = new Edge(Sur, Guy);
+	Edge gs = new Edge(Guy, Sur);
+	Edge sb = new Edge(Sur, Bra);
+	Edge bs = new Edge(Bra, Sur);
+	Edge gb = new Edge(Guy, Bra);
+	Edge bg = new Edge(Bra, Guy);
+	Edge bc = new Edge(Bra, Col);
+	Edge cb = new Edge(Col, Bra);
+
+	Ven.edges.add(vc);
+	Ven.edges.add(vg);
+	Ven.edges.add(vb);
+
+	Col.edges.add(cv);
+	Col.edges.add(cb);
+	Col.edges.add(ce);
+
+	Ec.edges.add(ec);
+
+	Sur.edges.add(sg);
+	Sur.edges.add(sb);
+	
+	Guy.edges.add(gv);
+	Guy.edges.add(gs);
+	Guy.edges.add(gb);
+	
+	Bra.edges.add(bv);
+	Bra.edges.add(bs);
+	Bra.edges.add(bg);
+	Bra.edges.add(bc);
+
+
+	ArrayList<Vertex> vertices = new ArrayList<>();
+	vertices.add(Ven);
+	vertices.add(Col);
+	vertices.add(Ec);
+	vertices.add(Sur);
+	vertices.add(Guy);
+	vertices.add(Bra);
+
 
 	Graph g = new Graph(vertices);
 
 	//to make sure the graph is connected correctly
-	for(Vertex v : g.vertices){
+	/*for(Vertex v : g.vertices){
 	    System.out.print(v.name + " is attached to: ");
 	    for(Edge e : v.edges){
 		System.out.print(e.end.name + " and ");
 	    }
 	    System.out.println();
-	}
+	    }*/
 
 	g.colorGraph();
 
 	for(Vertex v : g.vertices){
-	    System.out.println(v.name + " " + v.color);
+	    System.out.println("['"+v.name +"'"+ ", " + v.color+"],");
 	}
     }
 }

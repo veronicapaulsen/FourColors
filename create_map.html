@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type = "text/javascript">
+      
+      google.load("visualization", "1", {packages:["geochart"]});
+      google.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap(){
+      var data = new google.visualization.arrayToDataTable([['Region','Color'], ['Venezuela', 3],['Colombia', 2],['Ecuador', 3],['Suriname', 3],['Guyana', 2],
+      ['Brazil', 1]]);
+
+      var options = {
+      region : '005',
+      colorAxis : {colors: ['red', 'green', 'blue', 'yellow']},
+          backgroundColor: '#81d4fa',
+          datalessRegionColor: '#f8bbd0',
+          defaultColor: '#f5f5f5',
+      };
+
+      var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+      chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
